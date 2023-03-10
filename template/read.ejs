@@ -15,17 +15,20 @@
 
 
     <div class="container">
-        <div class="table-responsive">
+        <h2 class="text-center">
+            <%=title %>
+        </h2>
+        <div class="row mt-3">
 
-            <h2 class="text-center">
-                <%=title %>
-            </h2>
-            <a href="/">
+            <a href="/create" class="row-mt-3">
                 <button class="btn btn-primary">
-
+    
                     Add Data
                 </button>
             </a>
+        </div>
+        <div class="table-responsive col mt-3">
+
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -48,6 +51,20 @@
                             </td>
                             <td>
                                 <%= item.Stok %>
+                            </td>
+                            <td>
+                                <a href="/Detail/<%=item.Id%>">
+
+                                    <button class="btn btn-primary">Detail</button>
+                                </a>
+                                <a href="/Edit/<%=item.Id%>">
+
+                                    <button class="btn btn-warning">Edit</button>
+                                </a>
+                                <a href="/Delete/<%=item.Id%>">
+
+                                    <button class="btn btn-danger">Delete</button>
+                                </a>
                             </td>
                         </tr>
                         <%}) %>
