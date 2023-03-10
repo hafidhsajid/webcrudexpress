@@ -28,22 +28,38 @@ app.get("/", function (req, res) {
     res.render("read", {
       title: "Read Data from database",
       field: ["Nama Barang", "Harga", "Jumlah Stok", "Action"],
-      // field:["Nama Barang", "Deskripsi", "Harga", "Jumlah Stok"],
       data: row,
     });
   });
 });
 app.get("/create", function (req, res) {
-  var readquery = "SELECT * FROM Barang";
-  koneksi.query(readquery, (err, row, field) => {
-    if (err) {
-      return res.status(500).json({ message: "something wrong", err: err });
-    }
-    res.render("detail", {
-      title: "Detail Data from database",
-      data: row,
-    });
+  res.render("create", {
+    title: "Create Data from database",
   });
+});
+
+app.post("/create", function (req, res) {
+  var readquery = "SELECT * FROM Barang";
+  var createquery = "INSERT INTO Barang SET ?";
+
+  koneksi.query(
+    createquery,
+    [
+      {
+        Deskripsi: req.body.Deskripsi,
+        NamaBarang: req.body.Nama,
+        HargaJual: req.body.Harga,
+        Stok: req.body.Stok,
+      },
+      req.params.id,
+    ],
+    (err, row1, field1) => {
+      if (err) {
+        return res.status(500).json({ message: "something wrong", err: err });
+      }
+      return res.redirect("/");
+    }
+  );
 });
 app.get("/detail/:id", function (req, res) {
   var readquery = "SELECT * FROM Barang WHERE id = " + req.params.id;
@@ -70,36 +86,40 @@ app.get("/edit/:id", function (req, res) {
   });
 });
 app.post("/edit/:id", function (req, res) {
-    
-  var updatequery = "UPDATE Barang SET? WHERE id = "+req.params.id;
+  var updatequery = "UPDATE Barang SET? WHERE id = " + req.params.id;
   var readquery = "SELECT * FROM Barang WHERE id = " + req.params.id;
   koneksi.query(readquery, (err, row, field) => {
     if (err) {
       return res.status(500).json({ message: "something wrong", err: err });
     }
     if (req.params.id != req.body.Id) {
-        return res.status(400).json({ message: "Bad Request", err: err });
+      return res.status(400).json({ message: "Bad Request", err: err });
     }
     if (row.length) {
-        
-        koneksi.query(updatequery,[{
-            Id:req.body.Id,
-            Deskripsi:req.body.Deskripsi,
-            NamaBarang:req.body.Nama,
-            HargaJual:req.body.Harga,
-            Stok:req.body.Stok
+      koneksi.query(
+        updatequery,
+        [
+          {
+            Id: req.body.Id,
+            Deskripsi: req.body.Deskripsi,
+            NamaBarang: req.body.Nama,
+            HargaJual: req.body.Harga,
+            Stok: req.body.Stok,
+          },
+          req.params.id,
+        ],
+        (err, row1, field1) => {
+          if (err) {
+            return res
+              .status(500)
+              .json({ message: "something wrong", err: err });
+          }
 
-        },req.params.id],(err,row1,field1)=>{
-            if(err){
-                return res.status(500).json({ message: "something wrong", err: err });
-
-            }
-            return res.redirect("/");
-            
-        });
-    }else{
-        
-        return res.status(400).json({ message: "Bad Request", err: err });
+          return res.redirect("/");
+        }
+      );
+    } else {
+      return res.status(400).json({ message: "Bad Request", err: err });
     }
     // return res
     //   .status(200)
@@ -112,14 +132,21 @@ app.post("/edit/:id", function (req, res) {
 });
 app.post("/delete/:id", function (req, res) {
   var readquery = "SELECT * FROM Barang WHERE id = " + req.params.id;
-  koneksi.query(readquery, (err, row, field) => {
+  var deletequery = "DELETE FROM Barang WHERE id = " + req.params.id;
+  koneksi.query(deletequery, (err, row, field) => {
     if (err) {
+      console.log(err);
       return res.status(500).json({ message: "something wrong", err: err });
     }
-    res.render("detail", {
-      title: "Detail Data from database",
-      data: row,
-    });
+    if(row.affectedRows>0){
+
+      return res.status(200).json({ message: "Success", err: err });
+    }else{
+      
+      console.log(row.affectedRows);
+      return res.status(500).json({ message: "Deleted", err: err });
+    }
+
   });
 });
 
