@@ -1,0 +1,67 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1deb5ubuntu1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Mar 11, 2023 at 09:48 AM
+-- Server version: 8.0.32-0ubuntu0.22.04.2
+-- PHP Version: 8.1.2-1ubuntu2.11
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Database: `barang`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Barang`
+--
+
+CREATE TABLE `Barang` (
+  `Id` int NOT NULL,
+  `NamaBarang` varchar(255) NOT NULL,
+  `Deskripsi` text,
+  `FotoBarang` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `HargaBeli` int DEFAULT NULL,
+  `HargaJual` int NOT NULL,
+  `Stok` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `Barang`
+--
+
+INSERT INTO `Barang` (`Id`, `NamaBarang`, `Deskripsi`, `FotoBarang`, `HargaBeli`, `HargaJual`, `Stok`) VALUES
+(1, 'T-Shirt White', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio accusantium aliquid impedit dolor harum molestiae nisi facere molestias, voluptas expedita natus voluptatibus, officia distinctio fuga earum iusto ipsum ipsa in.', 't-shirt-png.png', 150000, 200000, 3),
+(2, 'Casual Dress Belt', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio accusantium aliquid impedit dolor harum molestiae nisi facere molestias, voluptas expedita natus voluptatibus, officia distinctio fuga earum iusto ipsum ipsa in.', 'casual-dress-belts.png', 200000, 300000, 10),
+(3, 'Jeans', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio accusantium aliquid impedit dolor harum molestiae nisi facere molestias, voluptas expedita natus voluptatibus, officia distinctio fuga earum iusto ipsum ipsa in.', 'jeans.png', 1500000, 2000000, 10),
+(4, 'Wallet', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio accusantium aliquid impedit dolor harum molestiae nisi facere molestias, voluptas expedita natus voluptatibus, officia distinctio fuga earum iusto ipsum ipsa in.', 'money-wallet-dollar.png', 200000, 300000, 10),
+(5, 'Running Shoes', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio accusantium aliquid impedit dolor harum molestiae nisi facere molestias, voluptas expedita natus voluptatibus, officia distinctio fuga earum iusto ipsum ipsa in.', 'running-shoes.png', 400000, 900000, 30),
+(6, 'Women Shoes', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio accusantium aliquid impedit dolor harum molestiae nisi facere molestias, voluptas expedita natus voluptatibus, officia distinctio fuga earum iusto ipsum ipsa in.', 'women-shoes.png', 100000, 200000, 25),
+(26, 'T-Shirt Black', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio accusantium aliquid impedit dolor harum molestiae nisi facere molestias, voluptas expedita natus voluptatibus, officia distinctio fuga earum iusto ipsum ipsa in.', 'black-tshirt.jpg', 100000, 100000, 5);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Barang`
+--
+ALTER TABLE `Barang`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `NamaBarang` (`NamaBarang`) USING BTREE;
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Barang`
+--
+ALTER TABLE `Barang`
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+COMMIT;
