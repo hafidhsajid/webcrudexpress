@@ -1,4 +1,4 @@
-# Simple APP CRUD with MYsql Database Using Nodejs
+# Simple APP CRUD with MySQL Database Using Nodejs
 
 To Start 
 ```
