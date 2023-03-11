@@ -108,8 +108,10 @@
                             'Deleted!',
                             'Your file has been deleted.',
                             'success'
-                        )
-                        window.location.reload
+                        ).then(()=>{
+                            document.location.reload();
+
+                        });
 
                     }
                     ).catch(
